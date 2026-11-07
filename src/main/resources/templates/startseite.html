@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" lang="de">
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nescue</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 </head>
 <body>
-    <h1>Nescue</h1>
-    <p>Wir retten die Meere!</p>
+    <main class="container py-2">
+        <h1>Nescue</h1>
+        <p class="lead">Wir retten die Meere!</p>
+    </main>
+
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
 </body>
 </html>
