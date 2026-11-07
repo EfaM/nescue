@@ -5,14 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nescue</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="icon" th:href="@{/img/favicon.ico}">
 </head>
 <body>
-    <main class="container py-2">
-        <h1>Nescue</h1>
-        <p class="lead">Wir retten die Meere!</p>
-    </main>
+<header class="border-bottom">
+    <nav class="navbar bg-body">
+        <div class="navbar bg-body">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" th:href="@{/}">
+                    <img th:src="@{/img/nescue_logo.png}" alt="Nescue Logo" width="52" height="52">
+                    <span>Nescue</span>
+                </a>
+            </div>
+        </div>
+    </nav>
 
+</header>
+<main class="container p-2 pb-4 mb-4">
+    <h1>Nescue</h1>
+    <p class="lead">Wir retten die Meere!</p>
+</main>
+
+<footer>
+    <nav class="bg-body">
+        <ul class="nav nav-pills fixed-bottom p-2">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/}">Startseite</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </li>
+        </ul>
+    </nav>
+</footer>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
-
 </body>
 </html>
