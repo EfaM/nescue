@@ -1,4 +1,4 @@
-package com.sheasepherd.nescue;
+package com.sheasepherd.nescue.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
