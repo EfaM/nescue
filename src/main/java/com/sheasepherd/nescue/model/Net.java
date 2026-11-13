@@ -39,6 +39,12 @@ public class Net {
         this.status = status;
     }
 
+    public Net(Coordinates coordinates, Size size) {
+        this.coordinates = coordinates;
+        this.size = size;
+        this.status = Status.REPORTED;
+    }
+
     public UUID getId() {
         return id;
     }
