@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Geisternetz melden</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="icon" th:href="@{/img/favicon.ico}">
+</head>
+<body>
+<main class="container p-2 pb-4 mb-4">
+    <h1> Du hast ein Geisternetz gesehen?</h1>
+    <p>
+       Melde jetzt das Netz über unser Formular:
+    </p>
+    <form class="m-4" th:action="@{/report}" th:object="${reportForm}" method="post">
+        <fieldset  class="my-2">
+            <legend class="form-label fs-6">Größe</legend>
+            <div class="form-check" th:each=" sizeItem : ${sizeItems}">
+                <input class="form-check-input" type="radio" th:field="*{size}" th:value="${sizeItem}" required>
+                <label class="form-check-label" th:for="${#ids.prev('size')}" th:text="#{sizeItem.__${sizeItem}__}"></label>
+            </div>
+        </fieldset>
+        <div class="my-4">
+            <label for="latitude" class="form-label">Breitengrad</label>
+            <input type="number" class="form-control" th:field="*{latitude}" min="-90" max="90" step="any" placeholder="Eine Zahl zwischen -90 und +90">
+        </div>
+        <div class="my-4">
+            <label for="longitude" class="form-label">Längengrad</label>
+            <input type="number" class="form-control" th:field="*{longitude}" min="-180" max="180" step="any" placeholder="Eine Zahl zwischen -180 und +180">
+        </div>
+        <button type="submit" class="my-2 btn btn-primary">Netzsichtung abschicken</button>
+    </form>
+    <div th:if="${param.success}" class="alert alert-success">
+        Die Meldung wurde übermittelt. Danke für deinen Beitrag zur Rettung der Meere.
+    </div>
+</main>
+<script th:src="@{webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
