@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Geisternetz melden</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-    <link rel="icon" th:href="@{/img/favicon.ico}">
-</head>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+
+<head th:replace="~{basicLayout :: head('Sichtung melden')}"></head>
+
 <body>
+
+<header th:replace="~{basicLayout :: header}"></header>
+
 <main class="container p-2 pb-4 mb-4">
     <h1> Du hast ein Geisternetz gesehen?</h1>
     <p>
@@ -35,6 +34,10 @@
         Die Meldung wurde übermittelt. Danke für deinen Beitrag zur Rettung der Meere.
     </div>
 </main>
-<script th:src="@{webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<nav th:replace="~{basicLayout :: navigation('report')}"></nav>
+
+<th:block th:replace="~{basicLayout :: scripts}"></th:block>
+
 </body>
 </html>
