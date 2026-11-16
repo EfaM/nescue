@@ -1,8 +1,9 @@
-package com.sheasepherd.nescue;
+package com.sheasepherd.nescue.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -23,6 +24,7 @@ public class NetEvent {
     private Event event;
 
     @NotNull
+    @CreationTimestamp
     @Column(nullable = false)
     private Instant timestamp;
 
@@ -37,10 +39,10 @@ public class NetEvent {
 
     protected NetEvent(){}
 
-    public NetEvent(Net net, Person person, Instant timestamp, Event event, Coordinates coordinates) {
+    public NetEvent(Net net, Person person, Event event, Coordinates coordinates) {
         this.net = net;
         this.person = person;
-        this.timestamp = timestamp;
+        this.timestamp = Instant.now();
         this.event = event;
         this.coordinates = coordinates;
     }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+
+<head th:replace="~{basicLayout :: head('Startseite')}"></head>
+
+<body>
+
+<header th:replace="~{basicLayout :: header}"></header>
+
+<main class="container p-2 pb-4 mb-4">
+    <h1>Nescue</h1>
+    <h2> Gemeinsam retten wir  die Meere!</h2>
+    <p>
+        Wir von Nescue tragen dazu bei, dass unsere Meere sauberer werden.
+        Besonders verlorengegangene Fischernetze stellen eine große Begrohung für unsere Ökosysteme dar, weil sie weiter fischen - Auch ohne uns!
+    </p>
+    <p>
+        <strong> Du hast ein herrenloses Fischernetz gesehen? </strong>
+    </p>
+    <p>
+        Dann melde es uns noch heute. Ehrenamtliche auf der ganzen Welt unterstützen uns bei der Bergung.
+    </p>
+    <p>
+        <strong>
+            Dir stehen die Mittel zur Verfügung, um selbst ein Netz zu bergen?
+        </strong>
+    </p>
+    <p>
+        In unserer Liste siehst Du alle Netze in deiner Nähe.
+    </p>
+    <p>
+        <strong>Danke für Deinen Einsatz!</strong>
+    </p>
+</main>
+
+<nav th:replace="~{basicLayout :: navigation('home')}"></nav>
+
+<th:block th:replace="~{basicLayout :: scripts}"></th:block>
+
+</body>
+
+</html>

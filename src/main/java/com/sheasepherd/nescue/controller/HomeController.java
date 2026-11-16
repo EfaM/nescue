@@ -1,12 +1,12 @@
-package com.sheasepherd.nescue;
+package com.sheasepherd.nescue.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class StartseiteController {
+public class HomeController {
     @GetMapping("/")
-    public String startseite() {
-        return "startseite";
+    public String home() {
+        return "home";
     }
 }

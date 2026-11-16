@@ -1,4 +1,4 @@
-package com.sheasepherd.nescue;
+package com.sheasepherd.nescue.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -37,6 +37,12 @@ public class Net {
         this.coordinates = coordinates;
         this.size = size;
         this.status = status;
+    }
+
+    public Net(Coordinates coordinates, Size size) {
+        this.coordinates = coordinates;
+        this.size = size;
+        this.status = Status.REPORTED;
     }
 
     public UUID getId() {

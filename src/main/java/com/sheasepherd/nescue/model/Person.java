@@ -1,4 +1,4 @@
-package com.sheasepherd.nescue;
+package com.sheasepherd.nescue.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
