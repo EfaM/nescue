@@ -40,6 +40,10 @@ public class ReportController {
             return "redirect:/report?success";
         }
 
+        if (reportForm.getFirstname().isEmpty() || reportForm.getLastname().isEmpty() || reportForm.getPhoneNumber().isEmpty()){ // Fehler
+            return "redirect:/report?danger";
+        }
+
         nescueService.reportNet(reportForm.getFirstname(), reportForm.getLastname(), reportForm.getPhoneNumber(), reportForm.getSize() , coordinates); // Meldung mit Kontaktdaten
         return "redirect:/report?success";
     }
