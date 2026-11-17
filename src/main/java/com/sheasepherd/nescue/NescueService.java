@@ -23,7 +23,7 @@ public class NescueService {
     }
 
     @Transactional
-    public Net reportNet(String firstname, String surname, String phoneNumber, Size size, Coordinates coordinates){
+    public Net reportNet(String firstname, String lastname, String phoneNumber, Size size, Coordinates coordinates){
 
         Net net = netDAO.save(new Net(coordinates, size));
 
@@ -31,11 +31,11 @@ public class NescueService {
         if (phoneNumber != null && !phoneNumber.isBlank()) {
             Optional<Person> formerReporter = personDAO.findByPhoneNumber(phoneNumber);
             if (formerReporter.isEmpty()) {
-                netFinder = personDAO.save(new Person(firstname, surname, phoneNumber));
+                netFinder = personDAO.save(new Person(firstname, lastname, phoneNumber));
             } else {
                 netFinder = formerReporter.get();
                 netFinder.setFirstname(firstname);  // Updated den aktuellen Vornamen
-                netFinder.setSurname(surname);  // Updated den aktuellen Nachnamen
+                netFinder.setLastname(lastname);  // Updated den aktuellen Nachnamen
             }
         }
         netEventDAO.save(new NetEvent(net, netFinder, Event.REPORT, coordinates)); // Beim anonymen Melden netFinder bleibt null, da nichts eingetragen oder gefunden wurde

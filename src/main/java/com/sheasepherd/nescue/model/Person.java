@@ -9,6 +9,8 @@ import java.util.UUID;
 @Entity
 public class Person {
 
+    public static final String PHONE_REG = "^$|^\\+[1-9]\\d{1,14}$"; //E.164 Format nach Quelle: https://ihateregex.io/expr/e164-phone
+
     @Id
     @GeneratedValue (strategy = GenerationType.UUID)
     private UUID id;
@@ -19,18 +21,18 @@ public class Person {
 
     @NotBlank
     @Column (nullable = false)
-    private String surname;
+    private String lastname;
 
     @NotBlank
     @Column (nullable = false, unique = true, length = 17)
-    @Pattern (regexp = "^\\+[1-9]\\d{1,14}$") //E.164 Format - Quelle: https://ihateregex.io/expr/e164-phone
+    @Pattern (regexp = PHONE_REG)
     private String phoneNumber;
 
     protected Person() {}
 
-    public Person (String firstname, String surname, String phoneNumber) {
+    public Person (String firstname, String lastname, String phoneNumber) {
         this.firstname = firstname;
-        this.surname = surname;
+        this.lastname = lastname;
         this.phoneNumber = phoneNumber;
     }
 
@@ -46,12 +48,12 @@ public class Person {
         this.firstname = firstname;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastname(String surname) {
+        this.lastname = surname;
     }
 
     public String getPhoneNumber() {
