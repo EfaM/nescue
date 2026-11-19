@@ -1,7 +1,9 @@
 package com.sheasepherd.nescue.controller;
 
+import com.sheasepherd.nescue.model.Person;
 import com.sheasepherd.nescue.model.Size;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 import java.math.BigDecimal;
 
@@ -14,6 +16,13 @@ public class ReportForm {
 
     @NotNull
     private Size size;
+
+    private String firstname;
+
+    private String lastname;
+
+    @Pattern(regexp = "|" + Person.PHONE_REG)
+    private String phoneNumber;
 
     public ReportForm(){}
 
@@ -39,5 +48,29 @@ public class ReportForm {
 
     public void setSize(Size size) {
         this.size = size;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

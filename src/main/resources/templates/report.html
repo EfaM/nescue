@@ -7,37 +7,60 @@
 
 <header th:replace="~{basicLayout :: header}"></header>
 
-<main class="container p-2 pb-4 mb-4">
-    <h1> Du hast ein Geisternetz gesehen?</h1>
-    <p>
-       Melde jetzt das Netz über unser Formular:
-    </p>
-    <form class="m-4" th:action="@{/report}" th:object="${reportForm}" method="post">
-        <fieldset  class="my-2">
-            <legend class="form-label fs-6">Größe</legend>
+<main class="container mb-4 p-3">
+    <h2> Du hast ein Geisternetz entdeckt?</h2>
+    <div th:if="${param.success}" class="alert alert-success fade show" role="status">
+        Deine Meldung wurde übermittelt. Danke für deinen Beitrag zur Rettung der Meere!
+    </div>
+    <div th:if="${param.danger}" class="alert alert-danger fade show" role="status">
+        Es ist ein Fehler aufgetreten: Deine Nachricht konnte nicht gespeichert werden.
+    </div>
+    <form th:action="@{/report}" th:object="${reportForm}" method="post">
+        <fieldset>
+            <legend class="form-label fs-6">Geschätzte Größe</legend>
             <div class="form-check" th:each=" sizeItem : ${sizeItems}">
                 <input class="form-check-input" type="radio" th:field="*{size}" th:value="${sizeItem}" required>
                 <label class="form-check-label" th:for="${#ids.prev('size')}" th:text="#{sizeItem.__${sizeItem}__}"></label>
             </div>
+            <div class="text-danger small" th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></div>
         </fieldset>
-        <div class="my-4">
-            <label for="latitude" class="form-label">Breitengrad</label>
-            <input type="number" class="form-control" th:field="*{latitude}" min="-90" max="90" step="any" placeholder="Eine Zahl zwischen -90 und +90">
+        <div class="input-group mt-4">
+            <span class="input-group-text" id="latitude-description">Breitengrad</span>
+            <input type="number" class="form-control" th:field="*{latitude}" min="-90" max="90" step="any" placeholder="von -90 bis +90" aria-label="breitengrad" aria-describedby="latitude-description">
         </div>
-        <div class="my-4">
-            <label for="longitude" class="form-label">Längengrad</label>
-            <input type="number" class="form-control" th:field="*{longitude}" min="-180" max="180" step="any" placeholder="Eine Zahl zwischen -180 und +180">
+        <div class="text-danger small" th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}"></div>
+        <div class="input-group mt-2">
+            <span class="input-group-text" id="longitude-description">Längengrad</span>
+            <input type="number" class="form-control" th:field="*{longitude}" min="-180" max="180" step="any" placeholder="von -180 bis +180" aria-label="längengrad" aria-describedby="longitude-description">
         </div>
-        <button type="submit" class="my-2 btn btn-primary">Netzsichtung abschicken</button>
+        <div class="text-danger small" th:if="${#fields.hasErrors('longitude')}" th:errors="*{longitude}"></div>
+        <button type="button" class="btn btn-outline-secondary mt-4 mb-2" data-bs-toggle="collapse" data-bs-target="#personForm" aria-expanded="false" aria-controls="personForm">
+            Stehst du für Rückfragen zur Verfügung?
+        </button>
+        <div class="collapse" id="personForm" th:classappend="${#fields.hasErrors('firstname')} or ${#fields.hasErrors('lastname')} or ${#fields.hasErrors('phoneNumber')} ? 'show' : 'collapse'">
+            <div class="mb-2">
+                <label for="firstname" class="form-label">Vorname*</label>
+                <input type="text" class="form-control contactForm" th:field="*{firstname}" placeholder="Vorname">
+            </div>
+            <div class="text-danger small" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></div>
+            <div class="mb-2">
+                <label for="lastname" class="form-label">Nachname*</label>
+                <input type="text" class="form-control contactForm" th:field="*{lastname}" placeholder="Nachname">
+            </div>
+            <div class="text-danger small" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
+            <div class="mb-2">
+                <label for="phoneNumber" class="form-label">Telefonnummer*</label>
+                <input type="tel" class="form-control contactForm" th:field="*{phoneNumber}" placeholder="Telefonnummer mit + beginnend.">
+            </div>
+            <div class="text-danger small" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
+            <p class="form-text">* Pflichtfelder</p>
+        </div>
+        <button type="submit" class="my-4 btn btn-primary">Netzsichtung abschicken</button>
     </form>
-    <div th:if="${param.success}" class="alert alert-success">
-        Die Meldung wurde übermittelt. Danke für deinen Beitrag zur Rettung der Meere.
-    </div>
 </main>
 
 <nav th:replace="~{basicLayout :: navigation('report')}"></nav>
 
 <th:block th:replace="~{basicLayout :: scripts}"></th:block>
-
 </body>
 </html>
