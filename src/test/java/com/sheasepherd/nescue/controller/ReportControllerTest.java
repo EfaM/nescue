@@ -172,7 +172,7 @@ public class ReportControllerTest {
                 .param("longitude", "127.24513")
                 .param("firstname", "Clara")
                 .param("lastname", "Testfall")
-                .param("phoneNumber", "+127A45B3R24")
+                .param("phoneNumber", "+127A45B3ADV")
         ).model().extractingBindingResult("reportForm").hasFieldErrors("phoneNumber");
         verifyNoInteractions(nescueService);
     }
