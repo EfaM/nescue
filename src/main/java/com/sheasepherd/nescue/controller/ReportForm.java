@@ -1,9 +1,12 @@
 package com.sheasepherd.nescue.controller;
 
+import ch.qos.logback.core.util.StringUtil;
 import com.sheasepherd.nescue.model.Person;
 import com.sheasepherd.nescue.model.Size;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 
@@ -23,6 +26,16 @@ public class ReportForm {
 
     @Pattern(regexp = "|" + Person.PHONE_REG)
     private String phoneNumber;
+
+    @AssertTrue
+    public boolean isCompleteContactDataInForm(){
+        if (StringUtils.hasText(firstname) && StringUtils.hasText(lastname) && StringUtils.hasText(phoneNumber)){ //Alle Kontaktdaten
+            return true;
+        } else if (!StringUtils.hasText(firstname) && !StringUtils.hasText(lastname) && !StringUtils.hasText(phoneNumber)) { //Keine Kontaktdaten enthalten
+            return true;
+        }
+        return false;
+    }
 
     public ReportForm(){}
 

@@ -12,9 +12,6 @@
     <div th:if="${param.success}" class="alert alert-success fade show" role="status">
         Deine Meldung wurde übermittelt. Danke für deinen Beitrag zur Rettung der Meere!
     </div>
-    <div th:if="${param.danger}" class="alert alert-danger fade show" role="status">
-        Es ist ein Fehler aufgetreten: Deine Nachricht konnte nicht gespeichert werden.
-    </div>
     <form th:action="@{/report}" th:object="${reportForm}" method="post">
         <fieldset>
             <legend class="form-label fs-6">Geschätzte Größe</legend>
@@ -34,10 +31,13 @@
             <input type="number" class="form-control" th:field="*{longitude}" min="-180" max="180" step="any" placeholder="von -180 bis +180" aria-label="längengrad" aria-describedby="longitude-description">
         </div>
         <div class="text-danger small" th:if="${#fields.hasErrors('longitude')}" th:errors="*{longitude}"></div>
-        <button type="button" class="btn btn-outline-secondary mt-4 mb-2" data-bs-toggle="collapse" data-bs-target="#personForm" aria-expanded="false" aria-controls="personForm">
-            Stehst du für Rückfragen zur Verfügung?
-        </button>
-        <div class="collapse" id="personForm" th:classappend="${#fields.hasErrors('firstname')} or ${#fields.hasErrors('lastname')} or ${#fields.hasErrors('phoneNumber')} ? 'show' : 'collapse'">
+        <div>
+            <button type="button" class="btn btn-outline-secondary mt-4 mb-2" data-bs-toggle="collapse" data-bs-target="#personForm" aria-expanded="false" aria-controls="personForm">
+                Stehst du für Rückfragen zur Verfügung?
+            </button>
+        </div>
+        <div class="text-danger small my-4" th:if="${#fields.hasErrors('completeContactDataInForm')}" th:errors="*{completeContactDataInForm}"></div>
+        <div class="collapse" id="personForm" th:classappend="${#fields.hasErrors('completeContactDataInForm')} ? 'show'">
             <div class="mb-2">
                 <label for="firstname" class="form-label">Vorname*</label>
                 <input type="text" class="form-control contactForm" th:field="*{firstname}" placeholder="Vorname">
