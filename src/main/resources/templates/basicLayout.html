@@ -30,34 +30,14 @@
         <li class="nav-item">
             <a class="nav-link" th:classappend="${active == 'report'} ? 'active'" th:href="@{/report}">Sichtung melden</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${active == 'ghost_nets'} ? 'active'" th:href="@{/ghost_nets}">Geisternetze</a>
+        </li>
     </ul>
 </nav>
 
 <th:block th:fragment="scripts">
     <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
-    <script>
-        const personForm = document.getElementById('personForm');
-        const fields = personForm.querySelectorAll('.contactForm');
-
-        personForm.addEventListener('show.bs.collapse', () => {
-            fields.forEach(field => field.requird = true); // Pflichtfelder aktiv, wenn Bereich sichtbar
-        });
-
-        personForm.addEventListener('hide.bs.collapse', () => {
-            fields.forEach(field =>{
-                field.requird = false; // Pflichtfelder dürfen leer sein, wenn Bereich unsichtbar
-                field.value ="";
-            });
-        });
-
-        const alerts = document.querySelectorAll('.alert')
-        if(alerts.length > 0){ // Beendet die Übermittlungsnachrichten
-            setTimeout(()=>{
-                alerts.forEach(alert => bootstrap.Alert.getOrCreateInstance(alert).close());
-                history.replaceState(null,'', location.pathname);
-            }, 6000);
-        }
-    </script>
 </th:block>
 
 </body>

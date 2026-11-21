@@ -7,6 +7,7 @@ import com.sheasepherd.nescue.model.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,5 +42,9 @@ public class NescueService {
         netEventDAO.save(new NetEvent(net, netFinder, Event.REPORT, coordinates)); // Beim anonymen Melden netFinder bleibt null, da nichts eingetragen oder gefunden wurde
 
         return net;
+    }
+
+    public List<Net> getNetsList(){
+        return netDAO.findByStatusNotOrderByCoordinatesLatitudeAsc(Status.RECOVERED);// Damit können geborgende Netze bereits ausgeklammert werden
     }
 }

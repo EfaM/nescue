@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+
+<head th:replace="~{basicLayout :: head('Geisternetze')}"></head>
+
+<body>
+
+<header th:replace="~{basicLayout :: header}"></header>
+
+<nav th:replace="~{basicLayout :: navigation('ghost_nets')}"></nav>
+
+<main class="container mb-4 p-3">
+    <h2> Du möchtest helfen? </h2>
+    <p> Hier findest du alle Netze, die derzeit bei uns gelistet sind.</p>
+
+    <table class="table table-bordered table-hover text-center">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Größe</th>
+                <th>
+                    <div>LAT</div>
+                    <div>LONG</div>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="net, row : ${nets}">
+                <td th:text="${row.count}"></td>
+                <td>
+                    <span class="badge text-bg-light"
+                        th:text="#{sizeItemLetter.__${net.size}__}" th:title="#{sizeItem.__${net.size}__}" data-bs-toggle="tooltip">
+                    </span>
+                </td>
+
+                <td>
+                    <div th:text="${net.coordinates.latitude}"></div>
+                    <div th:text="${net.coordinates.longitude}"></div>
+                </td>
+                <td th:switch="${net.status}">
+                    <span th:case="${net.status.REPORTED}">
+                        <Button class="btn btn-sm btn-secondary">Netz bergen</Button>
+                    </span>
+                    <span th:case="${net.status.RECOVERY}"> In Bergung
+                    <Button class="btn btn-sm btn-secondary my-2">Bergung abschließen</Button>
+                    <Button class="btn btn-sm btn-secondary my-2">Bergung abbrechen</Button>
+                    </span>
+                    <span th:case="${net.status.MISSING}">
+                        <div th:text="#{status.__${net.status}__}"></div>
+                        <Button class="btn btn-sm btn-secondary">Sichtung melden</Button>
+                    </span>
+                    <span th:case="*" th:text="#{status.__${net.status}__}"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+
+<th:block th:replace="~{basicLayout :: scripts}"></th:block>
+</body>
+</html>

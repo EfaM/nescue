@@ -1,6 +1,5 @@
 package com.sheasepherd.nescue.controller;
 
-import ch.qos.logback.core.util.StringUtil;
 import com.sheasepherd.nescue.model.Person;
 import com.sheasepherd.nescue.model.Size;
 import jakarta.validation.constraints.AssertTrue;
