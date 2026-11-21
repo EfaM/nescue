@@ -20,16 +20,16 @@ public class ReportController {
     }
 
     @GetMapping("/report")
-    public String showReportForm(Model formModel) {
-        formModel.addAttribute("reportForm", new ReportForm());
-        formModel.addAttribute("sizeItems", Size.values());
+    public String showReportForm(Model model) {
+        model.addAttribute("reportForm", new ReportForm());
+        model.addAttribute("sizeItems", Size.values());
         return "report";
     }
 
     @PostMapping("/report")
-    public String submitReport(@Valid @ModelAttribute ReportForm reportForm, BindingResult result, Model formModel){
+    public String submitReport(@Valid @ModelAttribute ReportForm reportForm, BindingResult result, Model model){
         if(result.hasErrors()){
-            formModel.addAttribute("sizeItems", Size.values());
+            model.addAttribute("sizeItems", Size.values());
             return "report";
         }
 
