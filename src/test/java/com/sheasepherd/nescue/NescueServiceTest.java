@@ -95,7 +95,6 @@ class NescueServiceTest {
         assertThat(net.getAssignedPerson().getPhoneNumber()).isEqualTo("+17224513124");
     }
 
-
     @Test
     void assignmentCreatesNewEventAndChangesNetStatus(){ // Kriterium zur Datenhaltung: Netz, Person, Aktion und Zeitpunkt werden gespeichert
         UUID netId = UUID.randomUUID();
@@ -117,4 +116,5 @@ class NescueServiceTest {
         assertThat(netEvent.getNet()).isSameAs(net);
         assertThat(netEvent.getTimestamp()).isNotNull();
     }
+
 }

@@ -16,6 +16,7 @@ public class ReportController {
     private final NescueService nescueService;
 
     public ReportController(NescueService nescueService){
+
         this.nescueService = nescueService;
     }
 
