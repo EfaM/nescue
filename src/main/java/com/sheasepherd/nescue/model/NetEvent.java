@@ -24,8 +24,7 @@ public class NetEvent {
     private Event event;
 
     @NotNull
-    @CreationTimestamp
-    @Column(nullable = false)
+    @Column(updatable = false, nullable = false)
     private Instant timestamp;
 
     @ManyToOne

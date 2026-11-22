@@ -15,11 +15,11 @@ public class GhostNetsController {
         this.nescueService = nescueService;
     }
 
-    @GetMapping("/ghost_nets")
+    @GetMapping("/ghost-nets")
     public String showGhostNets(Model model){
         model.addAttribute("nets", nescueService.getNetsList());
         model.addAttribute("sizeItemLetter", Size.values());
-        return("ghost_nets");
+        return("ghost-nets");
     }
 
 }
