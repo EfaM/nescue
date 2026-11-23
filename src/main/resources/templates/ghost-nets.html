@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="de">
 
 <head th:replace="~{basicLayout :: head('Geisternetze')}"></head>
 
@@ -40,11 +40,20 @@
                 </td>
                 <td th:switch="${net.status}">
                     <span th:case="${net.status.REPORTED}">
-                        <Button class="btn btn-sm btn-secondary">Netz bergen</Button>
+                        <button class="btn btn-sm btn-secondary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#assignFormModal"
+                                th:data-action="@{/ghost-nets/{id}/assign(id=${net.id})}"
+                                th:data-net-id="${net.id}"
+                                th:data-size="#{sizeItem.__${net.size}__}"
+                                th:data-lat="${net.coordinates.latitude}"
+                                th:data-long="${net.coordinates.longitude}"
+                                type="button"
+                        >Netz bergen</button>
                     </span>
                     <span th:case="${net.status.RECOVERY}"> In Bergung
-                    <Button class="btn btn-sm btn-secondary my-2">Bergung abschließen</Button>
-                    <Button class="btn btn-sm btn-secondary my-2">Bergung abbrechen</Button>
+                    <button class="btn btn-sm btn-secondary my-2" type="button">Bergung abschließen</button>
+                    <button class="btn btn-sm btn-secondary my-2" type="button">Bergung abbrechen</button>
                     </span>
                     <span th:case="${net.status.MISSING}">
                         <div th:text="#{status.__${net.status}__}"></div>
@@ -55,8 +64,80 @@
             </tr>
         </tbody>
     </table>
+    <div class="modal fade" id="assignFormModal" tabindex="-1" aria-labelledby="assignFormLabel" aria-hidden="true" th:data-open-modal-net-id="${assignedNetId}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="container-fluid">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="row">
+                            <p class="modal-title fs-5 col-12 my-2">Ich möchte folgendes Geisternetz bergen:</p>
+                        </div>
+                        <div class="row">
+                            <div class="small col-md-6">LAT <span id="formLat"></span> | LONG <span id="formLong"></span></div>
+                            <div class="small col-md-6">Größe <span id="formSize"></span> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <fieldset>
+                        <form th:action="${assignedNetId != null} ? @{/ghost-nets/{id}/assign(id=${assignedNetId})}"
+                              th:object="${assignForm}"
+                              method="post">
+                                <div class="mb-2">
+                                    <label for="firstname" class="form-label">Vorname*</label>
+                                    <input type="text" class="form-control" th:field="*{firstname}" placeholder="Vorname">
+                                </div>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></div>
+                                <div class="mb-2">
+                                    <label for="lastname" class="form-label">Nachname*</label>
+                                    <input type="text" class="form-control" th:field="*{lastname}" placeholder="Nachname">
+                                </div>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
+                                <div class="mb-2">
+                                    <label for="phoneNumber" class="form-label">Telefonnummer*</label>
+                                    <input type="tel" class="form-control" th:field="*{phoneNumber}" placeholder="Telefonnummer mit + beginnend.">
+                                </div>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
+                                <p class="form-text">* Pflichtfelder</p>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                                <button type="submit" class="my-4 btn btn-primary">Zur Bergung eintragen</button>
+                            </div>
+                        </form>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 <th:block th:replace="~{basicLayout :: scripts}"></th:block>
+<script>
+    const assignModal = document.getElementById('assignFormModal');
+
+
+    assignModal.addEventListener('show.bs.modal', event => {
+
+        const button = event.relatedTarget;
+
+        if(!button) return;
+
+        assignModal.querySelector('form').action = button.dataset.action;
+        assignModal.querySelector('#formSize').textContent = button.dataset.size;
+        assignModal.querySelector('#formLat').textContent = button.dataset.lat;
+        assignModal.querySelector('#formLong').textContent = button.dataset.long;
+
+    });
+
+    const openModalNetId = assignModal.dataset.openModalNetId;
+    if(openModalNetId){
+        const button = document.querySelector('[data-net-id="' + openModalNetId + '"]');
+        bootstrap.Modal.getOrCreateInstance(assignModal).show(button);
+    }
+
+</script>
 </body>
 </html>

@@ -25,6 +25,8 @@ public class NetListController {
 
     @GetMapping("/ghost-nets")
     public String showAssignForm(Model model) {
+        model.addAttribute("nets", nescueService.getNetsList());
+        model.addAttribute("sizeItemLetter", Size.values());
         model.addAttribute("assignForm", new AssignForm());
         return "/ghost-nets";
     }
