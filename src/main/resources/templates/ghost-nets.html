@@ -12,7 +12,9 @@
 <main class="container mb-4 p-3">
     <h2> Du möchtest helfen? </h2>
     <p> Hier findest du alle Netze, die derzeit bei uns gelistet sind.</p>
-
+    <div th:if="${param.success}" class="alert alert-success fade show" role="status">
+        Du hast dich erfolgreich für eine Bergung eingetragen. Danke für deinen Beitrag zur Rettung der Meere!
+    </div>
     <table class="table table-bordered table-hover text-center">
         <thead>
             <tr>
@@ -137,7 +139,7 @@
         const button = document.querySelector('[data-net-id="' + openModalNetId + '"]');
         bootstrap.Modal.getOrCreateInstance(assignModal).show(button);
     }
-
 </script>
+<th:block th:replace="~{basicLayout :: alertHandler}"></th:block>
 </body>
 </html>

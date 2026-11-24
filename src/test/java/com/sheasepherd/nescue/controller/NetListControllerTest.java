@@ -96,4 +96,18 @@ class NetListControllerTest {
                 .param("phoneNumber","+12724513124")
         ).hasStatus3xxRedirection().hasRedirectedUrl("/ghost-nets?alreadyAssigned");
     }
+
+    @Test
+    void modalReopenAfterMissingInputsAndDontChangesDatabase(){
+        UUID netId = UUID.randomUUID();
+
+        assertThat(mockMvc.post().uri("/ghost-nets/{id}/assign", netId)
+                .param("firstname", "Clara") // Nachname fehlt
+                .param("phoneNumber", "+12724513124")
+        )   .hasStatusOk()
+            .hasViewName("ghost-nets")
+            .model().containsEntry("assignedNetId", netId);
+
+        verify(nescueService, never()).assignNet(any(), any(), any(), any());
+    }
 }

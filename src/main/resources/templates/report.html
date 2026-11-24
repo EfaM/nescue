@@ -76,14 +76,7 @@
             field.value ="";
         });
     });
-
-    const alerts = document.querySelectorAll('.alert')
-    if(alerts.length > 0){ // Beendet die Übermittlungsnachrichten
-        setTimeout(()=>{
-            alerts.forEach(alert => bootstrap.Alert.getOrCreateInstance(alert).close());
-            history.replaceState(null,'', location.pathname);
-        }, 6000);
-    }
 </script>
+<th:block th:replace="~{basicLayout :: alertHandler}"></th:block>
 </body>
 </html>
