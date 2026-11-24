@@ -3,7 +3,6 @@ package com.sheasepherd.nescue.model;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -24,8 +23,7 @@ public class NetEvent {
     private Event event;
 
     @NotNull
-    @CreationTimestamp
-    @Column(nullable = false)
+    @Column(updatable = false, nullable = false)
     private Instant timestamp;
 
     @ManyToOne
